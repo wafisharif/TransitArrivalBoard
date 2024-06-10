@@ -14,7 +14,7 @@ export function Calendar() {
                 <h1 className="font-bold text-emerald-700 2xl:text-5xl">May</h1>
               </div>
               <Bullet
-                route={{ route_id: "", route_name: "7", route_color: "047857", route_text_color: "FFFFFF" }}
+                route={{ route_id: "", route_name: "7", route_color: "#047857", route_text_color: "#FFFFFF" }}
                 size={56}
               ></Bullet>
             </div>
@@ -36,7 +36,7 @@ export function Calendar() {
                 <h1 className="font-bold text-emerald-700 2xl:text-5xl">May</h1>
               </div>
               <Bullet
-                route={{ route_id: "", route_name: "8", route_color: "047857", route_text_color: "FFFFFF" }}
+                route={{ route_id: "", route_name: "8", route_color: "#047857", route_text_color: "#FFFFFF" }}
                 size={56}
               ></Bullet>
             </div>
@@ -59,7 +59,7 @@ export function Calendar() {
                   <h1 className="font-bold text-emerald-700 2xl:text-5xl">May</h1>
                 </div>
                 <Bullet
-                  route={{ route_id: "", route_name: "9", route_color: "047857", route_text_color: "FFFFFF" }}
+                  route={{ route_id: "", route_name: "9", route_color: "#047857", route_text_color: "#FFFFFF" }}
                   size={56}
                 ></Bullet>
               </div>

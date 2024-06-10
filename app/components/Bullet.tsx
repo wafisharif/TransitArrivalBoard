@@ -78,7 +78,7 @@ export function Bullet(props: { route: Route; size: number }) {
         <span
           className="flex items-center justify-center rounded-full"
           style={{
-            backgroundColor: `#${props.route.route_color}`,
+            backgroundColor: props.route.route_color,
             height: `${props.size}px`,
             width: `${props.size}px`,
           }}
@@ -87,7 +87,7 @@ export function Bullet(props: { route: Route; size: number }) {
             className="text-center font-bold "
             style={{
               fontSize: `${props.size * 0.6}px`,
-              color: `#${props.route.route_text_color}`,
+              color: props.route.route_text_color,
             }}
           >
             {props.route.route_name}
@@ -109,7 +109,7 @@ export function Bullet(props: { route: Route; size: number }) {
         <span
           className="flex rotate-[45deg] items-center justify-center"
           style={{
-            backgroundColor: `#${props.route.route_color}`,
+            backgroundColor: props.route.route_color,
             height: `${props.size / Math.sqrt(2)}px`,
             width: `${props.size / Math.sqrt(2)}px`,
           }}
@@ -118,7 +118,7 @@ export function Bullet(props: { route: Route; size: number }) {
             className="rotate-[-45deg] text-nowrap text-center font-bold"
             style={{
               fontSize: `${props.size * 0.6}px`,
-              color: `#${props.route.route_text_color}`,
+              color: props.route.route_text_color,
             }}
           >
             {props.route.route_name.substring(0, 1)}
@@ -140,7 +140,7 @@ export function Bullet(props: { route: Route; size: number }) {
         <span
           className="flex items-center justify-center rounded-full"
           style={{
-            backgroundColor: `#${props.route.route_color}`,
+            backgroundColor: props.route.route_color,
             height: `${props.size}px`,
             width: `${props.size}px`,
           }}
@@ -149,7 +149,7 @@ export function Bullet(props: { route: Route; size: number }) {
             className="text-nowrap text-center font-bold"
             style={{
               fontSize: `${props.size * 0.6}px`,
-              color: `#${props.route.route_text_color}`,
+              color: props.route.route_text_color,
             }}
           >
             {props.route.route_name}
@@ -163,7 +163,7 @@ export function Bullet(props: { route: Route; size: number }) {
     <span
       className="flex items-center justify-center rounded-2xl"
       style={{
-        backgroundColor: `#${props.route.route_color}`,
+        backgroundColor: props.route.route_color,
         height: `${props.size}px`,
       }}
     >
@@ -171,7 +171,7 @@ export function Bullet(props: { route: Route; size: number }) {
         className="text-nowrap text-center font-bold"
         style={{
           fontSize: `${props.size * 0.6}px`,
-          color: `#${props.route.route_text_color}`,
+          color: props.route.route_text_color,
           paddingLeft: `${props.size * 0.175}px`,
           paddingRight: `${props.size * 0.175}px`,
         }}

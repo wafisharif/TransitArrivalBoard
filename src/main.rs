@@ -136,7 +136,7 @@ fn main() {
           let route = Route {
             route_id: value.id.to_owned(),
             route_name: value.short_name.as_ref().unwrap().to_owned(),
-            route_color: format!("{:02X}{:02X}{:02X}", value.color.r, value.color.g, value.color.b)
+            route_color: format!("#{:02X}{:02X}{:02X}", value.color.r, value.color.g, value.color.b)
               .as_str()
               .to_owned(),
             route_text_color: format!(
