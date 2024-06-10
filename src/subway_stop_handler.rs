@@ -12,7 +12,7 @@ pub struct SubwayStopHandler {
   feed_data: Arc<RwLock<FeedHandler>>,
   pub stop_ids: Vec<String>,
   pub trips: Vec<Vehicle>,
-  pub routes: BTreeMap<String, BTreeMap<String, Vec<Vehicle>>>,
+  pub destinations: BTreeMap<String, BTreeMap<String, Vec<Vehicle>>>,
 }
 
 impl SubwayStopHandler {
@@ -31,7 +31,7 @@ impl SubwayStopHandler {
     }
 
     let mut trips: Vec<Vehicle> = Default::default();
-    let mut routes: BTreeMap<String, BTreeMap<String, Vec<Vehicle>>> = Default::default();
+    let mut destinations: BTreeMap<String, BTreeMap<String, Vec<Vehicle>>> = Default::default();
 
     // Crash if UNIX_EPOCH fails to convert to i64
     let current_time = i64::try_from(SystemTime::now().duration_since(UNIX_EPOCH).unwrap().as_secs()).unwrap();
@@ -88,16 +88,16 @@ impl SubwayStopHandler {
 
               // All data from lines 90-110 are verified via the if statements
               // Input data into routes
-              if !routes.contains_key(route_id) {
-                routes.insert(route_id.to_owned(), BTreeMap::new());
+              if !destinations.contains_key(route_id) {
+                destinations.insert(route_id.to_owned(), BTreeMap::new());
               }
-              if !routes.get(route_id).unwrap().contains_key(destination_id) {
-                routes
+              if !destinations.get(route_id).unwrap().contains_key(destination_id) {
+                destinations
                   .get_mut(route_id)
                   .unwrap()
                   .insert(destination_id.to_owned(), Vec::new());
               };
-              routes
+              destinations
                 .get_mut(route_id)
                 .unwrap()
                 .get_mut(destination_id)
@@ -126,7 +126,7 @@ impl SubwayStopHandler {
     });
 
     self.trips = trips;
-    self.routes = routes;
+    self.destinations = destinations;
   }
 
   pub fn serialize(&self) -> Stop {
@@ -143,12 +143,12 @@ impl SubwayStopHandler {
         .unwrap() // A stop should have name
         .to_string(),
       trips: self.trips.to_owned(),
-      routes: self.routes.to_owned(),
+      destinations: self.destinations.to_owned(),
     }
   }
 
   pub fn predict(&mut self) {
-    self.routes.clear();
+    self.destinations.clear();
 
     for trip in &mut self.trips {
       trip.minutes_until_arrival -= 1;
@@ -158,23 +158,23 @@ impl SubwayStopHandler {
       }
 
       // All the unwraps are verified between lines 161-191
-      if !self.routes.contains_key(&trip.route_id) {
-        self.routes.insert(trip.route_id.to_owned(), BTreeMap::new());
+      if !self.destinations.contains_key(&trip.route_id) {
+        self.destinations.insert(trip.route_id.to_owned(), BTreeMap::new());
       }
       if !self
-        .routes
+        .destinations
         .get(&trip.route_id)
         .unwrap()
         .contains_key(&trip.destination_id)
       {
         self
-          .routes
+          .destinations
           .get_mut(&trip.route_id)
           .unwrap()
           .insert(trip.destination_id.to_owned(), Vec::new());
       };
       self
-        .routes
+        .destinations
         .get_mut(&trip.route_id)
         .unwrap()
         .get_mut(&trip.destination_id)

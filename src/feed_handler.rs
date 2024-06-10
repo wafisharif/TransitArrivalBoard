@@ -20,9 +20,12 @@ impl FeedHandler {
   }
 
   pub fn refresh_realtime(&mut self) {
-    let mut subway: Vec<gtfsrt::FeedMessage> = Default::default();
+    self.refresh_subway_realtime();
+    self.refresh_service_alerts_realtime()
+  }
 
-    // Subway
+  fn refresh_subway_realtime(&mut self) {
+    let mut subway: Vec<gtfsrt::FeedMessage> = Default::default();
     let feed_uris = [
       "https://api-endpoint.mta.info/Dataservice/mtagtfsfeeds/nyct%2Fgtfs-ace",
       "https://api-endpoint.mta.info/Dataservice/mtagtfsfeeds/nyct%2Fgtfs-bdfm",
@@ -37,18 +40,24 @@ impl FeedHandler {
         Ok(a) => a,
         Err(_) => {
           self.subway_realtime_feed = None;
-          break;
+          return;
         } // HTTP request failed.
       };
       let bytes = resp.as_bytes();
       let feed = match gtfsrt::FeedMessage::decode(bytes) {
         Ok(a) => a,
-        Err(_) => continue,
+        Err(_) => {
+          self.subway_realtime_feed = None;
+          return;
+        }
       };
       subway.push(feed);
     }
 
-    // Service Alerts
+    self.subway_realtime_feed = Some(subway);
+  }
+
+  fn refresh_service_alerts_realtime(&mut self) {
     let resp =
       match minreq::get("https://api-endpoint.mta.info/Dataservice/mtagtfsfeeds/camsys%2Fsubway-alerts.json").send() {
         Ok(a) => a,
@@ -57,14 +66,12 @@ impl FeedHandler {
           return;
         }
       };
-
     let bytes = resp.as_bytes();
     let service_alerts: MercuryDelays = match serde_json::from_slice(bytes) {
       Ok(r) => r,
       Err(_) => Default::default(),
     };
 
-    self.subway_realtime_feed = Some(subway);
     self.service_alerts_realtime_feed = Some(service_alerts);
   }
 
@@ -78,6 +85,7 @@ impl FeedHandler {
       "http://web.mta.info/developers/data/nyct/bus/google_transit_manhattan.zip",
       "http://web.mta.info/developers/data/nyct/bus/google_transit_queens.zip",
       "http://web.mta.info/developers/data/nyct/bus/google_transit_staten_island.zip",
+      "http://web.mta.info/developers/data/busco/google_transit.zip",
     ];
     for uri in feed_uris {
       let resp = match minreq::get(uri).send() {
@@ -96,7 +104,6 @@ impl FeedHandler {
     let resp = match minreq::get("http://web.mta.info/developers/data/nyct/subway/google_transit.zip").send() {
       Ok(a) => a,
       Err(_) => {
-        println!("If board is broken, then reload backend");
         return;
       } // Relying on no data will probably bork transit board
     };
