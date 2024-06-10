@@ -140,7 +140,7 @@ fn main() {
               .as_str()
               .to_owned(),
             route_text_color: format!(
-              "{:02X}{:02X}{:02X}",
+              "#{:02X}{:02X}{:02X}",
               value.text_color.r, value.text_color.g, value.text_color.b
             )
             .as_str()
