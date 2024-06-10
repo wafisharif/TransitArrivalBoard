@@ -8,7 +8,7 @@ import { Stop } from "@/types/Stop";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Bulletin } from "./components/Bulletin";
-import { Countdown } from "./components/Countdown";
+import { Calendar } from "./components/Calendar";
 import { Message } from "./components/Message";
 
 export default function Home() {
@@ -109,16 +109,7 @@ export default function Home() {
       <div className="flex grow flex-row gap-4 bg-emerald-700 p-2 text-black">
         <div className="flex min-h-full basis-3/5 flex-col gap-4">
           <div className="flex h-full flex-col gap-2 rounded-xl bg-black p-2">
-            {Object.values(config.subway).map((value) => {
-              return (
-                <Countdown
-                  key={value.stop_ids[0]}
-                  stop={stops[value.stop_ids[0]]}
-                  walk_time={value.walk_time}
-                  routes={routes}
-                ></Countdown>
-              );
-            })}
+            <Calendar></Calendar>
           </div>
           <div className="flex h-full flex-col gap-2 rounded-xl bg-black p-2">
             {<Message name={"Service Alerts"} headers={headers} routes={routes} index={index} />}
