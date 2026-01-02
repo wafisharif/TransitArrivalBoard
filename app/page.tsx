@@ -177,18 +177,7 @@ export default function Home() {
               height={36}
               width={36}
             />
-            <span>Shadman Syed</span>
-          </span>
-          {" and "}
-          <span className="inline-flex items-baseline">
-            <Image
-              src="https://avatars.githubusercontent.com/u/95447323?"
-              alt=""
-              className="mx-1 self-center rounded-full"
-              height={36}
-              width={36}
-            />
-            <span>David Wang</span>
+            <span>Wafi Sharif</span>
           </span>
         </h1>
         <h1 className="mx-2 flex-1  text-end font-bold text-white 2xl:text-3xl">{time}</h1>
