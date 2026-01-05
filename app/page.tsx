@@ -170,13 +170,6 @@ export default function Home() {
         <h1 className="mx-2 text-center font-bold text-white 2xl:text-3xl">
           {"Made with ❤️ by "}
           <span className="inline-flex items-baseline">
-            <Image
-              src="https://avatars.githubusercontent.com/u/76977073?"
-              alt=""
-              className="mx-1 self-center rounded-full"
-              height={36}
-              width={36}
-            />
             <span>Wafi Sharif</span>
           </span>
         </h1>
