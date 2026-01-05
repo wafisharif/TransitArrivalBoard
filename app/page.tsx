@@ -168,9 +168,9 @@ export default function Home() {
           })()}
         </h1>
         <h1 className="mx-2 text-center font-bold text-white 2xl:text-3xl">
-          {"Made with ❤️ by "}
+          {"Made by "}
           <span className="inline-flex items-baseline">
-            <span>Wafi Sharif</span>
+            <span>Wafi Sharif, '27</span>
           </span>
         </h1>
         <h1 className="mx-2 flex-1  text-end font-bold text-white 2xl:text-3xl">{time}</h1>
